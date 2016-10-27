@@ -25,9 +25,8 @@ public abstract class KortSamling {
 	 * Oppretter en tom Kortsamling med plass til MAKS_KORT (hele kortstokken).
 	 */
 	public KortSamling() {
-		
-		// TODO
-		throw new RuntimeException("Metode KortSamling ikke implementert");
+		samling = new Kort[MAKS_KORT];
+		//throw new RuntimeException("Metode KortSamling ikke implementert");
 	}
 
 	/**
@@ -36,9 +35,14 @@ public abstract class KortSamling {
 	 * @return true om samlinga er tom, false ellers.
 	 */
 	public boolean erTom() {
-		
-		// TODO
-		throw new RuntimeException("Metode erTom ikke implementert");
+		boolean tom = true; 
+		for (int i = 0; i < samling.length; i++) {
+			if (samling[i] != null) {
+				tom = false;
+				break;
+			}
+		} return tom;
+		//throw new RuntimeException("Metode erTom ikke implementert");
 	}
 
 	/**
@@ -51,9 +55,8 @@ public abstract class KortSamling {
 	 * @return tabell av kort.
 	 */
 	public Kort[] getSamling() {
-		
-		// TODO
-		throw new RuntimeException("Metode getSamling ikke implementert");
+		return samling;
+		//throw new RuntimeException("Metode getSamling ikke implementert");
 	}
 
 	/**
@@ -62,22 +65,22 @@ public abstract class KortSamling {
 	 * @return antall kort i samlinga.
 	 */
 	public int getAntalKort() {
+		return forsteledig;
 		
-		// TODO
-		
-		throw new RuntimeException("Metode getAntalKort ikke implementert");
+		//throw new RuntimeException("Metode getAntalKort ikke implementert");
 	}
 
-	/**
+	/*
 	 * Legger alle korta (hele kortstokken) til samlnga. Korta vil vÊre sortert
 	 * slik at de normalt mÂ stokkes f¯r bruk.
 	 */
 	public void leggTilAlle() {
 		// Hint: Kortfarge.values() gir en tabell med alle kortfarger	
 		
-		// TODO
+		for (int i = 0; i < samling.length; i++) {
+		}
 		
-		throw new RuntimeException("Metode leggTilAlle ikke implementert");
+		//throw new RuntimeException("Metode leggTilAlle ikke implementert");
 	}
 
 	/**
@@ -85,9 +88,11 @@ public abstract class KortSamling {
 	 */
 	public void fjernAlle() {
 		
-		// TODO
+		for (int i = 0; i < samling.length; i++) {
+			samling[i] = null; 
+		}
 		
-		throw new RuntimeException("Metode fjernAlle ikke implementert");
+		//throw new RuntimeException("Metode fjernAlle ikke implementert");
 	}
 
 	/**
@@ -97,10 +102,12 @@ public abstract class KortSamling {
 	 *            er kortet som skal leggast til.
 	 */
 	public void leggTil(Kort kort) {
+		if (forsteledig < samling.length) {
+			samling[forsteledig] = kort;
+			forsteledig++;
+		}
 		
-		// TODO
-		
-		throw new RuntimeException("Metode leggTil ikke implementert");
+		//throw new RuntimeException("Metode leggTil ikke implementert");
 	}
 
 	/**
