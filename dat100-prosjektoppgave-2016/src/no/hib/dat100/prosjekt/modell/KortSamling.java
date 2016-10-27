@@ -32,7 +32,7 @@ public abstract class KortSamling {
 	/**
 	 * Sjekker om samlinga er tom.
 	 * 
-	 * @return true om samlinga er tom, false ellers.
+	 * @return true om samlinga er tom, false ellerst.
 	 */
 	public boolean erTom() {
 		boolean tom = true; 
