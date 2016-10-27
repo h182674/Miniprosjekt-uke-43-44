@@ -6,7 +6,7 @@ import no.hib.dat100.prosjekt.modell.Kort;
 
 /**
  * Klasse som for Â representere en vriÂtter spiller. Strategien er Â lete
- * gjennom kortene man har pÂ hand og spille det f¯rste som er lovlig.
+ * gjennom kortene man har pÂ hand og spille det f¯rste som er lovlige.
  *
  */
 public class FirstFitSpiller extends Spiller {
