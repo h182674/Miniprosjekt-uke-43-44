@@ -17,16 +17,19 @@ public abstract class KortSamling {
 
 	// tabell for representasjon av samling av kort
 	private Kort[] samling;
-	
+
 	// index p� forste ledige plass
 	private int forsteledig;
+
+	// variabel som blir brukt har(Kort) og fjern(Kort)
+	int indexSisteKortSjekket = -1;
 
 	/**
 	 * Oppretter en tom Kortsamling med plass til MAKS_KORT (hele kortstokken).
 	 */
 	public KortSamling() {
 		samling = new Kort[MAKS_KORT];
-		//throw new RuntimeException("Metode KortSamling ikke implementert");
+		// throw new RuntimeException("Metode KortSamling ikke implementert");
 	}
 
 	/**
@@ -35,14 +38,15 @@ public abstract class KortSamling {
 	 * @return true om samlinga er tom, false ellerst.
 	 */
 	public boolean erTom() {
-		boolean tom = true; 
+		boolean tom = true;
 		for (int i = 0; i < samling.length; i++) {
 			if (samling[i] != null) {
 				tom = false;
 				break;
 			}
-		} return tom;
-		//throw new RuntimeException("Metode erTom ikke implementert");
+		}
+		return tom;
+		// throw new RuntimeException("Metode erTom ikke implementert");
 	}
 
 	/**
@@ -56,7 +60,7 @@ public abstract class KortSamling {
 	 */
 	public Kort[] getSamling() {
 		return samling;
-		//throw new RuntimeException("Metode getSamling ikke implementert");
+		// throw new RuntimeException("Metode getSamling ikke implementert");
 	}
 
 	/**
@@ -66,8 +70,8 @@ public abstract class KortSamling {
 	 */
 	public int getAntalKort() {
 		return forsteledig;
-		
-		//throw new RuntimeException("Metode getAntalKort ikke implementert");
+
+		// throw new RuntimeException("Metode getAntalKort ikke implementert");
 	}
 
 	/*
@@ -75,28 +79,43 @@ public abstract class KortSamling {
 	 * slik at de normalt mÂ stokkes f¯r bruk.
 	 */
 	public void leggTilAlle() {
-		// Hint: Kortfarge.values() gir en tabell med alle kortfarger	
-		
-		for (int i = 0; i < samling.length; i++) {
-			
-			for (int j = 0; j < samling.length; j++) {
-				
-			}
-		}
-		
-		//throw new RuntimeException("Metode leggTilAlle ikke implementert");
+		// Hint: Kortfarge.values() gir en tabell med alle kortfarger
+
+		 Kort[] fullKortStokk = new Kort[MAKS_KORT];
+	        for (int i = 0; i < 4; i++) {
+	            for (int y = 1; y <= MAKS_KORT_FARGE; y++) {
+	                if (i == 0) {
+	                    System.out.println("Hjerter");
+	                    fullKortStokk[i] = new Kort(Kortfarge.Hjerter, y);
+	                } else if (i == 1) {
+	                    System.out.println("Klover");
+	                    fullKortStokk[i] = new Kort(Kortfarge.Klover, y);
+	                } else if (i == 2) {
+	                    System.out.println("Ruter");
+	                    fullKortStokk[i] = new Kort(Kortfarge.Ruter, y);
+	                } else {
+	                    System.out.println("Spar");
+	                    fullKortStokk[i] = new Kort(Kortfarge.Spar, y);
+	                }
+	            }
+	        }
+	        samling = fullKortStokk;
+	        forsteledig = -1; // Et tall som sier at det ikke er noen ledig.
+
+		// throw new RuntimeException("Metode leggTilAlle ikke implementert");
 	}
 
 	/**
 	 * Fjerner alle korta fra samlinga slik at den blir tom.
 	 */
 	public void fjernAlle() {
-		
+
 		for (int i = 0; i < samling.length; i++) {
-			samling[i] = null; 
+			samling[i] = null;
+			forsteledig--;
 		}
-		
-		//throw new RuntimeException("Metode fjernAlle ikke implementert");
+
+		// throw new RuntimeException("Metode fjernAlle ikke implementert");
 	}
 
 	/**
@@ -110,8 +129,8 @@ public abstract class KortSamling {
 			samling[forsteledig] = kort;
 			forsteledig++;
 		}
-		
-		//throw new RuntimeException("Metode leggTil ikke implementert");
+
+		// throw new RuntimeException("Metode leggTil ikke implementert");
 	}
 
 	/**
@@ -120,15 +139,16 @@ public abstract class KortSamling {
 	 * @return siste kortet i samlinga, men det blir ikke fjernet.
 	 */
 	public Kort seSiste() {
-		Kort sisteKort = samling[0];
+		Kort sisteKort = null;
 		for (int i = 1; i < samling.length + 1; i++) {
 			if (samling[samling.length - i] != null) {
 				sisteKort = samling[samling.length - i];
 				break;
 			}
-		}return sisteKort;
-		
-		//throw new RuntimeException("Metode seSiste ikke implementert");
+		}
+		return sisteKort;
+
+		// throw new RuntimeException("Metode seSiste ikke implementert");
 	}
 
 	/**
@@ -138,9 +158,16 @@ public abstract class KortSamling {
 	 *         null.
 	 */
 	public Kort taSiste() {
-		
-		
-		throw new RuntimeException("Metode taSiste ikke implementert");
+		if (erTom()) {
+			return null;
+		}
+
+		forsteledig--;
+		Kort kort = samling[forsteledig];
+		samling[forsteledig] = null;
+		return kort;
+
+		// throw new RuntimeException("Metode taSiste ikke implementert");
 	}
 
 	/**
@@ -151,10 +178,15 @@ public abstract class KortSamling {
 	 * @return true om kortet finst i samlinga, false ellers.
 	 */
 	public boolean har(Kort kort) {
-		
-		// TODO
-		
-		throw new RuntimeException("Metode har ikke implementert");
+		for (int i = 0; i < forsteledig; i++) {
+			if (samling[i].equals(kort)) {
+				indexSisteKortSjekket = i;
+				return true;
+			}
+		}
+		return false;
+
+		// throw new RuntimeException("Metode har ikke implementert");
 	}
 
 	/**
@@ -166,26 +198,42 @@ public abstract class KortSamling {
 	 *            ingenting.
 	 */
 	public void fjern(Kort kort) {
-		// Hint: finn forst ut hvor kortet er i samlingen hvis det finnes 
-		
-		// TODO
-		
+		// Hint: finn forst ut hvor kortet er i samlingen hvis det finnes
+
+		if (har(kort)) {
+			samling[indexSisteKortSjekket] = null;
+			indexSisteKortSjekket = -1;
+			forsteledig--;
+		}
+
 		// Hint: fjern kortet - men husk kortet kan sitte p� en plass i midten
-		
-		// TODO
-		
-		throw new RuntimeException("Metode fjernKort ikke implementert");
+
+		for (int i = 0; i < forsteledig; i++) {
+			if (samling[i] == null) {
+				Kort temp = samling[i];
+				samling[i] = samling[i + 1];
+				samling[i + 1] = temp;
+			}
+		}
+
+		// throw new RuntimeException("Metode fjernKort ikke implementert");
 	}
 
 	/**
-	 * Stokkar en kortsamling ved å bytte rundt på kort 
+	 * Stokkar en kortsamling ved å bytte rundt på kort
 	 */
 	public void stokk() {
-		// Hint: en mulighet er bruk av klassen Random for � generere tilfeldige index
-		
-		// TODO
-		
-		throw new RuntimeException("Metode stokk ikke implementert");
+		// Hint: en mulighet er bruk av klassen Random for � generere
+		// tilfeldige index
+		Random kort = new Random();
+		for (int i = 0; i < samling.length; i++) {
+			int stokkKort = kort.nextInt(samling.length);
+			Kort temp = samling[i];
+			samling[i] = samling[stokkKort];
+			samling[stokkKort] = temp; 
+		}
+
+		// throw new RuntimeException("Metode stokk ikke implementert");
 	}
 
 	/**
@@ -195,12 +243,18 @@ public abstract class KortSamling {
 	 *         som i kortsamlinga.
 	 */
 	public ArrayList<Kort> toArrayList() {
-		ArrayList<Kort> list = new ArrayList<Kort>();
-		
+		ArrayList<Kort> list = new ArrayList<>();
+
+		for (int i = 0; i < samling.length; i++) {
+			if (samling[i] == null) {
+				break;
+			}
+			list.add(samling[i]);
+		}
+		return list;
+
 		// Hint: legg hvert kort fra samling over i arraylisten list
-		
-		// TODO
-		
-		throw new RuntimeException("Metode ArrayList ikke implementert");
+
+		// throw new RuntimeException("Metode ArrayList ikke implementert");
 	}
 }

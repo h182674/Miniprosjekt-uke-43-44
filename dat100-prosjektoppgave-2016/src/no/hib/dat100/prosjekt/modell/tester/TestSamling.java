@@ -16,8 +16,10 @@ import no.hib.dat100.prosjekt.modell.Kortfarge;
 
 public class TestSamling {
 
+	private TKortSamling samling = new TKortSamling();
+	
 	@Rule
-	public TestRule globalTimeout = Timeout.seconds(30); 
+	public TestRule globalTimeout = Timeout.seconds(30);
 
 	@Test
 	public void TestConstructor() {
@@ -157,5 +159,10 @@ public class TestSamling {
 		assertEquals(kort2, kortarray.get(1));
 		assertEquals(kort3, kortarray.get(2));
 
+	}
+	
+	@Test
+	public void testLeggTilAlle() {
+		
 	}
 }
