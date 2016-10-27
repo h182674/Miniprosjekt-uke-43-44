@@ -78,6 +78,10 @@ public abstract class KortSamling {
 		// Hint: Kortfarge.values() gir en tabell med alle kortfarger	
 		
 		for (int i = 0; i < samling.length; i++) {
+			
+			for (int j = 0; j < samling.length; j++) {
+				
+			}
 		}
 		
 		//throw new RuntimeException("Metode leggTilAlle ikke implementert");
@@ -116,10 +120,15 @@ public abstract class KortSamling {
 	 * @return siste kortet i samlinga, men det blir ikke fjernet.
 	 */
 	public Kort seSiste() {
+		Kort sisteKort = samling[0];
+		for (int i = 1; i < samling.length + 1; i++) {
+			if (samling[samling.length - i] != null) {
+				sisteKort = samling[samling.length - i];
+				break;
+			}
+		}return sisteKort;
 		
-		// TODO
-		
-		throw new RuntimeException("Metode seSiste ikke implementert");
+		//throw new RuntimeException("Metode seSiste ikke implementert");
 	}
 
 	/**
@@ -130,7 +139,6 @@ public abstract class KortSamling {
 	 */
 	public Kort taSiste() {
 		
-		// TODO
 		
 		throw new RuntimeException("Metode taSiste ikke implementert");
 	}
