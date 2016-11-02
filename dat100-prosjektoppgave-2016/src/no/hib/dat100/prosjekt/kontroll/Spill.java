@@ -88,12 +88,13 @@ public class Spill {
 		
 		bunkeFra.leggTilAlle(); //Legger til alle korta i bunkeFra
 		
+		
+		
 		bunkeFra.stokk(); //Stokker bunkeFra
 		
-		//delutKort(); //deler ut kort til nord og syd
+		delutKort(); //deler ut kort til nord og syd
 		
-		//vendOverste(); //vender det �verste kortet i fra-bunken og legger den i til-bunken
-		
+		vendOverste(); //vender det �verste kortet i fra-bunken og legger den i til-bunken
 		
 		
 		//throw new RuntimeException("Metode start ikke implementert");
@@ -134,13 +135,16 @@ public class Spill {
 	 * til-bunken. Det vil nÂr vÊre det eneste kortet i til-bunken.
 	 */
 	public void snuTilBunken() {
-
-			bunkeTil.seSiste();
-			for (int i = 0; i < bunkeTil.getAntalKort(); i++) {
-				bunkeFra.leggTil(bunkeTil.taSiste());
+			Kort snuKort = bunkeTil.topp();
+			if (bunkeFra.erTom() == true) {
+				for (int i = 0; i < bunkeTil.getAntalKort(); i++) {
+					bunkeFra.leggTil(bunkeTil.taSiste());
+				}
 			}
-			bunkeTil.leggTil(bunkeTil.seSiste());
+			bunkeTil.leggTil(snuKort);
 			bunkeFra.stokk();
+			
+			// TODO: bug
 		
 		
 		//throw new RuntimeException("Metode snuTilBunken ikke implementert");
@@ -167,6 +171,8 @@ public class Spill {
 			spiller.trekker(bunkeFra.taSiste());
 		}
 		return kort;
+		
+		//TODO: bug
 		
 		
 		//throw new RuntimeException("Metode trekkFraBunke ikke implementert");
@@ -301,7 +307,6 @@ public class Spill {
 			return false;
 		}
 		
-		//TODO
 		//throw new RuntimeException("Metode leggnedKort ikke implementert");
 	}
 
@@ -314,9 +319,7 @@ public class Spill {
 	 */
 	public void forbiSpiller(ISpiller spiller) {
 		
-		spiller.nesteHandling(null).skifteTur();
 		spiller.setAntallTrekk(0);
-		// TODO
 		
 		//throw new RuntimeException("Metode forbiSpiller ikke implementert");
 	}
@@ -334,21 +337,24 @@ public class Spill {
 	 */
 	public Kort utforHandling(ISpiller spiller, Handling handling) {
 
-		Kort kort = null;
+		Kort kort = handling.getKort();
 		
-		/*if () {
-			
-		} else if () {
-			
+		if(handling.getType().equals(HandlingsType.FORBI)){
+			forbiSpiller(spiller);
+		} else if(handling.getType().equals(HandlingsType.LEGGNED)){
+			leggnedKort(nord, kort);
 		} else {
-			
-		}*/
-		// TODO
+			kort = trekkFraBunke(spiller);
+		}
+
+		return kort;
+		
+		
 		// Hint: del opp i de tre mulige handlinger og vurder 
 		// om noen andre private metoder i klassen kan brukes
 		// til å implementere denne metoden
 		
-		throw new RuntimeException("Metode utforHandling ikke implementert");
+		//throw new RuntimeException("Metode utforHandling ikke implementert");
 	}
 
 	/**
@@ -361,9 +367,9 @@ public class Spill {
 	 */
 	public boolean nedkortSyd(Kort kort) {
 		
-		// TODO
+		return leggnedKort(syd, kort);
 		
-		throw new RuntimeException("Metode nedkortSyd ikke implementert");
+		//throw new RuntimeException("Metode nedkortSyd ikke implementert");
 	}
 
 	/**
@@ -372,10 +378,24 @@ public class Spill {
 	 * @return kort som blir foreslÂtt.
 	 */
 	public Kort foreslaaKortSyd() {
+		ArrayList<Kort> sydHand = getSydHand();
+		Kort[] bunkePaaBordet = bunkeTil.getSamling();
+		Kort kort = bunkePaaBordet[bunkeTil.getAntalKort() - 1];
+
+		for(int i = 0; i < sydHand.size(); i++){
+			if(sydHand.get(i).getVerdi() > kort.getVerdi()){
+				if(sydHand.get(i).getFarge().equals(kort.getFarge())) {
+					return sydHand.get(i);
+				}
+			}
+			if(sydHand.get(i).getVerdi() == kort.getVerdi()){
+				return sydHand.get(i);
+			}
+		}
+		return null;
 		
-		// TODO
 		// Hint: bruk nesteHandling metoden for en spiller
 		
-		throw new RuntimeException("Metode foreslqqKortSyd ikke implementert");
+		//throw new RuntimeException("Metode foreslqqKortSyd ikke implementert");
 	}
 }

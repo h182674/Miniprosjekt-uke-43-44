@@ -115,8 +115,9 @@ public abstract class Spiller implements ISpiller {
 
 	@Override
 	public void fjernKort(Kort kort) {
-		
-		hand.fjern(kort);
+			if (hand.har(kort)) {
+				hand.fjern(kort);				
+			}
 		
 		// TODO: Må bruka equals() metoden fra Kort-klassen til å finna kortet som skal fjernast
 		

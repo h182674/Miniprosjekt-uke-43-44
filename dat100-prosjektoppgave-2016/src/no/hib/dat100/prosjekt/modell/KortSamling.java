@@ -82,7 +82,22 @@ public abstract class KortSamling {
 		// Hint: Kortfarge.values() gir en tabell med alle kortfarger
 
 		 Kort[] fullKortStokk = new Kort[MAKS_KORT];
-	        for (int i = 0; i < 4; i++) {
+		 for(int i = 0; i < 3; i++){
+			 fullKortStokk[i] = new Kort(Kortfarge.Hjerter, i+1);
+		 }
+		 
+		 for(int i = 0; i < 3; i++){
+			 fullKortStokk[i+3] = new Kort(Kortfarge.Klover, i+1);
+		 }
+		 
+		 for(int i = 0; i < 3; i++){
+			 fullKortStokk[i+6] = new Kort(Kortfarge.Ruter, i+1);
+		 }
+		 
+		 for(int i = 0; i < 3; i++){
+			 fullKortStokk[i+9] = new Kort(Kortfarge.Spar, i+1);
+		 }
+	        /*for (int i = 0; i < 4; i++) {
 	            for (int y = 1; y <= MAKS_KORT_FARGE; y++) {
 	                if (i == 0) {
 	                    System.out.println("Hjerter");
@@ -93,15 +108,17 @@ public abstract class KortSamling {
 	                } else if (i == 2) {
 	                    System.out.println("Ruter");
 	                    fullKortStokk[i] = new Kort(Kortfarge.Ruter, y);
-	                } else {
+	                } else if (i == 3) {
 	                    System.out.println("Spar");
 	                    fullKortStokk[i] = new Kort(Kortfarge.Spar, y);
 	                }
 	            }
-	        }
+	        }*/
 	        samling = fullKortStokk;
-	        forsteledig = -1; // Et tall som sier at det ikke er noen ledig.
-
+	        forsteledig = samling.length;
+	        
+	        // TODO: Den opprinnlige metoden funkasje, siden den fylle ikkje alle plassane i samling.
+	        // Me lagde ein ganske dårlig alternativ versjon som fylle opp alle dei 12 plassane i samling der me får 3 kort av kvar "farge"
 		// throw new RuntimeException("Metode leggTilAlle ikke implementert");
 	}
 
