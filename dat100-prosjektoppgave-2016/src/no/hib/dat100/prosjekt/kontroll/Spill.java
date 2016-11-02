@@ -30,9 +30,9 @@ public class Spill {
 	 */
 	public ISpiller getSyd() {
 		
-		// TODO
+		return syd;
 		
-		throw new RuntimeException("Metode getSyd ikke implementert");
+		//throw new RuntimeException("Metode getSyd ikke implementert");
 	}
 
 	/**
@@ -42,9 +42,9 @@ public class Spill {
 	 */
 	public ISpiller getNord() {
 		
-		// TODO
+		return nord;
 		
-		throw new RuntimeException("Metode getNord ikke implementert");
+		//throw new RuntimeException("Metode getNord ikke implementert");
 	}
 
 	/**
@@ -54,16 +54,16 @@ public class Spill {
 	 */
 	public Bunke getBunkeTil() {
 		
-		// TODO
+		return bunkeTil;
 		
-		throw new RuntimeException("Metode getBunkeTil ikke implementert");
+		//throw new RuntimeException("Metode getBunkeTil ikke implementert");
 	}
 
 	public Bunke getBunkeFra() {
 		
-		// TODO
+		return bunkeFra;
 		
-		throw new RuntimeException("Metode getBunkeFra ikke implementert");
+		//throw new RuntimeException("Metode getBunkeFra ikke implementert");
 	}
 
 	/**
@@ -80,9 +80,23 @@ public class Spill {
 		// Hint: vurder om andre private metoder i klassen kan brukes her
         // i tilegg til metoder på bunker
 		
-		// TODO
+		nord = new RandomSpiller(Spillere.NORD); //Dei to spelarane
+		syd = new RandomSpiller(Spillere.SYD);
+				
+		bunkeTil = new Bunke(); //Dei to bunkene
+		bunkeFra = new Bunke();
 		
-		throw new RuntimeException("Metode start ikke implementert");
+		bunkeFra.leggTilAlle(); //Legger til alle korta i bunkeFra
+		
+		bunkeFra.stokk(); //Stokker bunkeFra
+		
+		//delutKort(); //deler ut kort til nord og syd
+		
+		//vendOverste(); //vender det �verste kortet i fra-bunken og legger den i til-bunken
+		
+		
+		
+		//throw new RuntimeException("Metode start ikke implementert");
 	}
 
 	/**
@@ -93,9 +107,13 @@ public class Spill {
 
 		// Husk: Klassen Regler angir hvor mange kort hver spiller skal ha
 		
-		// TODO
+		for (int i = 0; i < Regler.antallKortVedStart(); i++) {
+			nord.trekker(bunkeFra.taSiste());
+			syd.trekker(bunkeFra.taSiste());
+		}
 		
-		throw new RuntimeException("Metode delutKort ikke implementert");
+		
+		//throw new RuntimeException("Metode delutKort ikke implementert");
 	}
 
 	/**
@@ -104,9 +122,9 @@ public class Spill {
 	 */
 	private void vendOverste() {
 		
-		// TODO
+		bunkeTil.leggTil(bunkeFra.taSiste());
 		
-		throw new RuntimeException("Metode vendOverste ikke implementert");
+		//throw new RuntimeException("Metode vendOverste ikke implementert");
 	}
 
 	/**
@@ -117,10 +135,15 @@ public class Spill {
 	 */
 	public void snuTilBunken() {
 
+			bunkeTil.seSiste();
+			for (int i = 0; i < bunkeTil.getAntalKort(); i++) {
+				bunkeFra.leggTil(bunkeTil.taSiste());
+			}
+			bunkeTil.leggTil(bunkeTil.seSiste());
+			bunkeFra.stokk();
 		
-		// TODO
 		
-		throw new RuntimeException("Metode snuTilBunken ikke implementert");
+		//throw new RuntimeException("Metode snuTilBunken ikke implementert");
 	}
 
 	/**
@@ -134,10 +157,19 @@ public class Spill {
 	 * @return kortet som trekkes.
 	 */
 	public Kort trekkFraBunke(ISpiller spiller) {
-
-		// TODO
+		Kort kort = null;
+		if (bunkeFra.erTom() == true) {
+			snuTilBunken();
+			kort = bunkeFra.seSiste();
+			spiller.trekker(bunkeFra.taSiste());
+		} else {
+			kort = bunkeFra.seSiste();
+			spiller.trekker(bunkeFra.taSiste());
+		}
+		return kort;
 		
-		throw new RuntimeException("Metode trekkFraBunke ikke implementert");
+		
+		//throw new RuntimeException("Metode trekkFraBunke ikke implementert");
 	}
 
 	/**
@@ -147,9 +179,9 @@ public class Spill {
 	 */
 	public boolean bunketilTom() {
 		
-		// TODO
+		return bunkeTil.erTom();
 		
-		throw new RuntimeException("Metode bunkeTilTom ikke implementert");
+		//throw new RuntimeException("Metode bunkeTilTom ikke implementert");
 	}
 
 	/**
@@ -159,9 +191,9 @@ public class Spill {
 	 */
 	public boolean bunkefraTom() {
 		
-		// TODO
+		return bunkeTil.erTom();
 		
-		throw new RuntimeException("Metode bunkefraTom ikke implementert");
+		//throw new RuntimeException("Metode bunkefraTom ikke implementert");
 	}
 
 	/**
@@ -171,9 +203,9 @@ public class Spill {
 	 */
 	public int antallNord() {
 		
-		// TODO
+		return nord.getAntallKort();
 		
-		throw new RuntimeException("Metode antallNord ikke implementert");
+		//throw new RuntimeException("Metode antallNord ikke implementert");
 	}
 
 	/**
@@ -183,9 +215,9 @@ public class Spill {
 	 */
 	public int antallBunkeFra() {
 		
-		// TODO
+		return bunkeFra.getAntalKort();
 		
-		throw new RuntimeException("Metode antallBunkeFra ikke implementert");
+		//throw new RuntimeException("Metode antallBunkeFra ikke implementert");
 	}
 
 	/**
@@ -195,9 +227,9 @@ public class Spill {
 	 */
 	public int antallBunkeTil() {
 		
-		// TODO
+		return bunkeTil.getAntalKort();
 		
-		throw new RuntimeException("Metode antallBunkeTil ikke implementert");
+		//throw new RuntimeException("Metode antallBunkeTil ikke implementert");
 	}
 
 	/**
@@ -208,9 +240,9 @@ public class Spill {
 	 */
 	public Kort seOverste() {
 		
-		// TODO
+		return bunkeTil.seSiste();
 		
-		throw new RuntimeException("Metode seOverste ikke implementert");
+		//throw new RuntimeException("Metode seOverste ikke implementert");
 	}
 
 	/**
@@ -220,9 +252,13 @@ public class Spill {
 	 */
 	public ArrayList<Kort> getSydHand() {
 		
-		// TODO
+		ArrayList<Kort> listSyd = new ArrayList<>();
 		
-		throw new RuntimeException("Metode getSydHand ikke implementert");
+		listSyd = syd.getHand().toArrayList(); 
+		
+		return listSyd;
+		
+		//throw new RuntimeException("Metode getSydHand ikke implementert");
 	}
 
 	/**
@@ -235,10 +271,12 @@ public class Spill {
 	 */
 	public Handling nesteHandling(ISpiller spiller) {
 		
-		// TODO
 		// Hint: bruk nesteHandling metoden på en spiller
 		
-		throw new RuntimeException("Metode nesteHandling ikke implementert");
+		return spiller.nesteHandling(spiller.getHand().seSiste());
+		
+		
+		//throw new RuntimeException("Metode nesteHandling ikke implementert");
 	}
 
 	/**
@@ -254,10 +292,17 @@ public class Spill {
 	 * @return true dersom spilleren har kortet, false ellers.
 	 */
 	public boolean leggnedKort(ISpiller spiller, Kort kort) {
+		if (spiller.getHand().har(kort) == true) {
+			spiller.getHand().fjern(kort);
+			bunkeTil.leggTil(kort);
+			spiller.setAntallTrekk(0);
+			return true;
+		} else {
+			return false;
+		}
 		
-		// TODO
-		
-		throw new RuntimeException("Metode leggnedKort ikke implementert");
+		//TODO
+		//throw new RuntimeException("Metode leggnedKort ikke implementert");
 	}
 
 	/**
@@ -269,13 +314,15 @@ public class Spill {
 	 */
 	public void forbiSpiller(ISpiller spiller) {
 		
+		spiller.nesteHandling(null).skifteTur();
+		spiller.setAntallTrekk(0);
 		// TODO
 		
-		throw new RuntimeException("Metode forbiSpiller ikke implementert");
+		//throw new RuntimeException("Metode forbiSpiller ikke implementert");
 	}
 
 	/**
-	 * Metode for Â utf¯re en handling (trekke, spille, forbi). Dersom hanling
+	 * Metode for Â utf¯re en handling (trekke, spille, forbi). Dersom handling
 	 * er kort, blir kortet ogsÂ spilt.
 	 * 
 	 * @param spiller
@@ -288,7 +335,14 @@ public class Spill {
 	public Kort utforHandling(ISpiller spiller, Handling handling) {
 
 		Kort kort = null;
-
+		
+		/*if () {
+			
+		} else if () {
+			
+		} else {
+			
+		}*/
 		// TODO
 		// Hint: del opp i de tre mulige handlinger og vurder 
 		// om noen andre private metoder i klassen kan brukes

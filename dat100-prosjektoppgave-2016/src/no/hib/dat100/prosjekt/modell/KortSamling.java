@@ -21,7 +21,7 @@ public abstract class KortSamling {
 	// index p� forste ledige plass
 	private int forsteledig;
 
-	// variabel som blir brukt har(Kort) og fjern(Kort)
+	// variabel som blir brukt til metodane har(Kort) og fjern(Kort)
 	int indexSisteKortSjekket = -1;
 
 	/**

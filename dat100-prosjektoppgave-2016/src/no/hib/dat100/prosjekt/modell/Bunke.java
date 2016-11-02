@@ -27,7 +27,6 @@ public class Bunke extends KortSamling {
 		 
 		return super.taSiste();
 		
-		
 		//throw new RuntimeException("Metode trekk ikke implementert");
 	}
 
