@@ -162,7 +162,7 @@ public class Spill {
 	 */
 	public Kort trekkFraBunke(ISpiller spiller) {
 		Kort kort = null;
-		if (bunkeFra.erTom() == true) {
+		if (bunkeFra.erTom()) {
 			snuTilBunken();
 			kort = bunkeFra.seSiste();
 			spiller.trekker(bunkeFra.taSiste());
@@ -197,7 +197,7 @@ public class Spill {
 	 */
 	public boolean bunkefraTom() {
 		
-		return bunkeTil.erTom();
+		return bunkeFra.erTom();
 		
 		//throw new RuntimeException("Metode bunkefraTom ikke implementert");
 	}
@@ -279,7 +279,7 @@ public class Spill {
 		
 		// Hint: bruk nesteHandling metoden på en spiller
 		
-		return spiller.nesteHandling(spiller.getHand().seSiste());
+		return spiller.nesteHandling(seOverste());
 		
 		
 		//throw new RuntimeException("Metode nesteHandling ikke implementert");
@@ -383,11 +383,9 @@ public class Spill {
 		Kort kort = bunkePaaBordet[bunkeTil.getAntalKort() - 1];
 
 		for(int i = 0; i < sydHand.size(); i++){
-			if(sydHand.get(i).getVerdi() > kort.getVerdi()){
 				if(sydHand.get(i).getFarge().equals(kort.getFarge())) {
 					return sydHand.get(i);
 				}
-			}
 			if(sydHand.get(i).getVerdi() == kort.getVerdi()){
 				return sydHand.get(i);
 			}

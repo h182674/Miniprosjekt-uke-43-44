@@ -80,11 +80,11 @@ public abstract class Spiller implements ISpiller {
 	public Spillere hvem() {
 		
 		if (spiller == Spillere.NORD) {
-			return Spillere.NORD;
+			return spiller;
 		} else if (spiller == Spillere.SYD) {
-			return Spillere.SYD;
+			return spiller;
 		} else {
-			return Spillere.INGEN;
+			return spiller;
 		}
 		
 		//throw new RuntimeException("Metode hvem ikke implementert");

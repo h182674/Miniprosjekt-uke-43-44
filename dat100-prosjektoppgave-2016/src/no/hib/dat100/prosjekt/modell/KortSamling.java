@@ -29,6 +29,7 @@ public abstract class KortSamling {
 	 */
 	public KortSamling() {
 		samling = new Kort[MAKS_KORT];
+		forsteledig = 0;
 		// throw new RuntimeException("Metode KortSamling ikke implementert");
 	}
 
@@ -117,7 +118,7 @@ public abstract class KortSamling {
 	        samling = fullKortStokk;
 	        forsteledig = samling.length;
 	        
-	        // TODO: Den opprinnlige metoden funkasje, siden den fylle ikkje alle plassane i samling.
+
 	        // Me lagde ein ganske dårlig alternativ versjon som fylle opp alle dei 12 plassane i samling der me får 3 kort av kvar "farge"
 		// throw new RuntimeException("Metode leggTilAlle ikke implementert");
 	}
